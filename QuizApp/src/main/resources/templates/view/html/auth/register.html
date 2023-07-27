@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App | Register</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="css/adminlte.min.css">
+</head>
+
+
+<body class="hold-transition register-page">
+
+
+    <div class="card">
+        <div class="card-body register-card-body">
+            <form action="/register-user" method="post">
+                <div class="register-logo">
+                    <a href="/"><b>UniQuizKBU</b></a>
+                </div>
+                <div class="card">
+                    <div class="card-body register-card-body">
+                        <p class="login-box-msg">Register a new membership</p>
+                        <form action="/register-user" method="post">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="First Name" name="firstName" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Last Name" name="lastName" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Username" name="username" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" placeholder="Password" name="password" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Gender" name="gender">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="date" class="form-control" placeholder="Birth Date" name="bithDate" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Email" name="email" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="icheck-primary">
+                                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                        <label for="agreeTerms">
+                                            I agree to the <a href="#">terms</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </form>
+
+
+            <a href="/login" class="text-center">I already have a membership</a>
+
+        </div>
+    </div>
+
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/adminlte.min.js"></script>
+
+
+
+</body>
+
+
+
+
+
+</html>

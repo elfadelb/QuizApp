@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | Dashboard</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div>
+  <div th:replace="view/html/asset/navbar.html :: nav"></div>
+
+  <div th:replace="view/html/asset/sidebar.html :: aside"></div>
+
+
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" id="content">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Admin Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Profile</a></li>
+              <li class="breadcrumb-item active">Admin Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Content -->
+
+    <div class="row">
+
+        <!-- General Info -->
+
+      <div class="container">
+        <div class="row justify-content-center">
+            <!-- Inside the div with class "row justify-content-center" -->
+            <div class="col-lg-3 col-6" th:each="course : ${courses}">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <p th:text="${course.name}">: </p>
+                        <h3 th:text="${course.getTotalQuestionCount()}"></h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a th:href="@{/admin-show-course-question/{id}(id=${course.getId})}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                  <h3 th:text="${totalCourse}"></h3>
+                  <p>Total Course</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="/admin-show-course" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3 th:text="${totalAnnouncement}"></h3>
+                <p>Total Announcement</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a th:href="${announcementListUrl}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- /General Info/ -->
+
+        <!-- The Latest added Announcement -->
+
+      <div class="col-md-8">
+
+        <div class="card border-dark">
+          <div class="card-header border-transparent">
+            <h3 class="card-title">Latest Announcements</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table m-0">
+                <thead>
+                <tr>
+                  <th>Announcement ID</th>
+                  <th>Title</th>
+                  <th>Content</th>
+                  <th>Created Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="announcement : ${latestAnnouncements}">
+                  <td th:text="${announcement.id}"></td>
+                  <td th:text="${announcement.title}"></td>
+                  <td th:text="${announcement.content}"></td>
+                  <td th:text="${announcement.createdDate}"></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <div class="card-footer clearfix">
+            <a href="/admin-create-announcement" class="btn btn-sm btn-info float-left">New Announcement</a>
+            <a href="/admin-announcement-list" class="btn btn-sm btn-secondary float-right">View All Announcement</a>
+          </div>
+
+        </div>
+      </div>
+
+        <!-- /The Latest added Announcement/ -->
+
+
+        <!-- The Latest added Courses -->
+        <div class="col-md-4">
+          <div class="card border-dark">
+              <div class="card-header border-transparent">
+                  <h3 class="card-title">Latest Courses</h3>
+                  <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <i class="fas fa-minus"></i>
+                      </button>
+                  </div>
+              </div>
+
+              <div class="card-body p-0">
+                  <div class="table-responsive">
+                      <table class="table m-0">
+                          <thead>
+                          <tr>
+                              <th>Course ID</th>
+                              <th>Name</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr th:each="latestCourse : ${latestCourses}">
+                              <td th:text="${latestCourse.id}"></td>
+                              <td th:text="${latestCourse.name}"></td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+
+
+              <div class="card-footer clearfix">
+                  <a href="/admin-create-course" class="btn btn-sm btn-info float-left">New Course</a>
+                  <a href="/admin-show-course" class="btn btn-sm btn-secondary float-right">View All Courses</a>
+              </div>
+          </div>
+        </div>
+
+    </div>
+    <!-- /.content -->
+
+  </div>
+
+
+
+  <div th:replace="view/html/asset/footer.html :: footer"></div>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes
+<script src="js/demo.js"></script>-->
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="js/pages/dashboard.js"></script>
+</body>
+</html>

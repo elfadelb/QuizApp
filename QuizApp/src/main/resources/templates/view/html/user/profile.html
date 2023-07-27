@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz App</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <div th:replace="view/html/userAsset/navbar.html :: nav"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="view/html/userAsset/sidebar.html :: aside"></div>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profile</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/user-dashboard">Home</a></li>
+              <li class="breadcrumb-item active">User Profile</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="img/AdminLTELogo.png"
+                       alt="User profile picture">
+                </div>
+
+                  <!-- Info -->
+                <h3 th:text="${user.firstName + ' ' + user.lastName}" class="profile-username text-center"></h3>
+                <p class="text-muted text-center">Software Engineer</p>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>Username: </b> <p th:text="${user.username}" class="float-right"></p>
+                  </li>
+                    <li class="list-group-item">
+                        <b>Email: </b> <p th:text="${user.email}" class="float-right"></p>
+                    </li>
+                  <li class="list-group-item">
+                    <b>Gender: </b> <p th:text="${user.gender}" class="float-right"></p>
+                  </li>
+                    <li class="list-group-item">
+                        <b>Birth Date: </b> <p th:text="${#dates.format(user.bithDate, 'yyyy-MM-dd')}" class="float-right"></p>
+                    </li>
+
+                </ul>
+
+                <a href="/logout" class="btn btn-primary btn-block"><b>Logout</b></a>
+                  <a href="/change-password" class="btn btn-warning btn-block mt-3"><b>Change Password</b></a>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">User Scores</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>User Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="course : ${courses}">
+                                <td th:text="${course.name}"></td>
+                                <td>
+                                    <ul>
+                                        <li th:each="userScore : ${userScores}" th:if="${userScore.course.id == course.id}">
+                                            <span th:text="${userScore.score} + '%'" ></span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+      <div>
+
+      </div>
+  </div>
+  <!-- /.content-wrapper -->
+    <!-- Footer -->
+    <div th:replace="view/html/userAsset/footer.html :: footer"></div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes
+<script src="/js/demo.js"></script> -->
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/js/pages/dashboard.js"></script>
+</body>
+</html>

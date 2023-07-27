@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz App</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <div th:replace="view/html/userAsset/navbar.html :: nav"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="view/html/userAsset/sidebar.html :: aside"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" id="content">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Dashboard</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/user-dashboard">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- / Content Header -->
+
+        <!-- CONTENT -->
+        <div class="container">
+            <div class="row justify-content-center ">
+                <div class="col-md-6 col-lg-4 mb-4" th:each="userQuiz : ${userQuizzes}">
+                    <div th:classappend="${userQuiz != null} ? 'card bg-success' : 'card bg-danger'">
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">
+                                <span th:text="${userQuiz.getCourse().getName()}">Course Name</span>
+                            </h4>
+                            <p class="card-text">Course Quiz</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <div class="card-footer">
+                            <!-- Son skor değeri sadece bir defa gösterilir -->
+                            <p>
+                                Score:
+                                <span th:if="${userQuiz != null}" th:text="${userQuiz.getScore()+ '%'}">-</span>
+                                <span th:unless="${userQuiz != null}">No score available</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mx-5">
+                <div class="col-md-12">
+                    <!-- The Latest added Announcement -->
+                    <div class="card border-dark">
+                        <div class="card-header bg-transparent">
+                            <h3 class="card-title"><strong> Latest Announcements </strong></h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Announcement ID</th>
+                                        <th>Title</th>
+                                        <th>Content</th>
+                                        <th>Created Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="announcement : ${announcements}">
+                                        <td th:text="${announcement.id}"></td>
+                                        <td th:text="${announcement.title}"></td>
+                                        <td th:text="${announcement.content}"></td>
+                                        <td th:text="${announcement.createdDate}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer clearfix d-flex justify-content-center">
+                            <a href="/user-announcement" class="btn btn-sm btn-secondary">View All Announcement</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Content Wrapper -->
+
+<!-- Footer -->
+<div th:replace="view/html/userAsset/footer.html :: footer"></div>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/js/pages/dashboard.js"></script>
+</body>
+</html>
